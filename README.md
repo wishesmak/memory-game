@@ -8,6 +8,6 @@ React.js, Typescript, Scss, (for state management - Context)
 
 ## Example
 
-![app example](https://github.com/wishesmak/memory-app/blob/master/public/readme-images/images/1.png?raw=true)
+![app example](https://github.com/wishesmak/memory-game/tree/master/public/readme-images/1.png?raw=true)
 
-![app example](https://github.com/wishesmak/memory-app/blob/master/public/readme-images/images/2.png?raw=true)
+![app example](https://github.com/wishesmak/memory-game/tree/master/public/readme-images/2.png?raw=true)
