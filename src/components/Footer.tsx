@@ -2,13 +2,15 @@ import React from 'react';
 import { useGameContext } from '../contexts/GameContext';
 
 const Footer = () => {
-  const { moves } = useGameContext();
+  const { moves, timer } = useGameContext();
 
   return (
     <div className="footer">
       <div className="footer__block">
         <p>Time</p>
-        <span>00:00</span>
+        <span>
+          {timer.m} : {timer.s < 10 ? '0' + timer.s : timer.s}
+        </span>
       </div>
       <div className="footer__block">
         <p>Moves</p>

@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { useTimer } from '../hooks/useTimer';
 import { ICell } from '../types/types';
 import initialBoard from '../utils/initialBoard';
 
@@ -7,6 +8,10 @@ interface IContext {
   timeToVisible: number;
   moves: number;
   isGameOver: boolean;
+  timer: {
+    m: number;
+    s: number;
+  };
   startGame: () => void;
   restartGame: () => void;
   onCellClick: (id: number) => void;
@@ -24,8 +29,10 @@ export const GameProvider = ({ children }: { children: JSX.Element }) => {
   const [timeToVisible, setTimeToVisible] = useState(3);
   const [prevCellId, setPrevCellId] = useState<number | null>(null);
   const [moves, setMoves] = useState(0);
-
   const [isTimeout, setIsTimeout] = useState(false);
+  const [isFirstClick, setIsFirstClick] = useState(true);
+
+  const { timer, startTimer, stopTimer, setTimer } = useTimer();
 
   const startGame = useCallback(() => {
     if (timeToVisible > 0) {
@@ -47,12 +54,20 @@ export const GameProvider = ({ children }: { children: JSX.Element }) => {
       setTimeToVisible(3);
       setIsGameOver(false);
       setMoves(0);
+      setIsFirstClick(true);
+      stopTimer();
+      setTimer({ m: 0, s: 0 });
     }
   };
 
   const onCellClick = (id: number) => {
     const prevCell = prevCellId && board.find((cell) => cell.id === prevCellId);
     const findedCell = board.find((cell) => cell.id === id);
+
+    if (isFirstClick) {
+      startTimer();
+      setIsFirstClick(false);
+    }
 
     if (timeToVisible === 0 && findedCell?.isFinded !== true && isTimeout === false) {
       setBoard(board.map((cell) => (cell.id === id ? { ...cell, isVisible: true } : cell)));
@@ -84,10 +99,20 @@ export const GameProvider = ({ children }: { children: JSX.Element }) => {
   useEffect(() => {
     if (board.every((cell) => cell.isFinded === true)) {
       setIsGameOver(true);
+      stopTimer();
     }
   }, [board]);
 
-  const value = { isGameOver, board, moves, timeToVisible, startGame, restartGame, onCellClick };
+  const value = {
+    isGameOver,
+    board,
+    moves,
+    timeToVisible,
+    startGame,
+    restartGame,
+    onCellClick,
+    timer,
+  };
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 };
