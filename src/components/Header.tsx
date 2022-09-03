@@ -1,11 +1,17 @@
 import React from 'react';
 
-const Header = () => {
+interface Props {
+  restartGame: () => void;
+}
+
+const Header: React.FC<Props> = ({ restartGame }) => {
   return (
     <div className="header">
       <h1>memory</h1>
       <div>
-        <button className="header__btns-restart">Restart</button>
+        <button onClick={restartGame} className="header__btns-restart">
+          Restart
+        </button>
       </div>
     </div>
   );

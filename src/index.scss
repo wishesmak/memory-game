@@ -30,6 +30,18 @@ button {
   cursor: pointer;
 }
 
+.button-bg-none {
+  background-color: white;
+  border: 1px solid var(--blue);
+  width: 100px;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--blue);
+    color: #fff;
+  }
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -40,8 +52,15 @@ button {
   &__btns {
     &-restart {
       margin-right: 10px;
-      background-color: var(--yellow);
-      color: #fff;
+      background-color: #fff;
+      border: 1px solid var(--yellow);
+      color: var(--yellow);
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        background-color: var(--yellow);
+        color: #fff;
+      }
     }
   }
 }

@@ -1,6 +1,9 @@
 import React from 'react';
+import { useGameContext } from '../contexts/GameContext';
 
 const Footer = () => {
+  const { moves } = useGameContext();
+
   return (
     <div className="footer">
       <div className="footer__block">
@@ -9,7 +12,7 @@ const Footer = () => {
       </div>
       <div className="footer__block">
         <p>Moves</p>
-        <span>0</span>
+        <span>{moves}</span>
       </div>
     </div>
   );
